@@ -25,7 +25,7 @@ class SecurityTests(unittest.TestCase):
             f"BOT_TOKEN={token} DEFAULT_LOGIN=student DEFAULT_PASSWORD={password} "
             "Cookie: sessionid=private-session "
             f"Authorization: Bearer {bearer} "
-            r"C:\Users\ExampleUser\Downloads\Projects\Abgemeldet\main.py"
+            r"C:\Users\ExampleUser\Downloads\Projects\SessionAutomationBot\main.py"
         )
 
         safe_text = redact_sensitive_text(raw_text)

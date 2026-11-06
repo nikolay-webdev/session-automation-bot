@@ -1,5 +1,5 @@
 param(
-    [string]$TaskName = "GFN Bot Watcher",
+    [string]$TaskName = "Session Automation Bot Watcher",
     [string]$PythonExe = ""
 )
 

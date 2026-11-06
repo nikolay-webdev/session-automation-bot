@@ -48,7 +48,7 @@ function Write-WakeLog {
 $createdNew = $false
 $wakeHelperMutex = [System.Threading.Mutex]::new(
     $true,
-    "Local\GFNWakeHelperPersistent",
+    "Local\SessionAutomationBotWakeHelper",
     [ref]$createdNew
 )
 

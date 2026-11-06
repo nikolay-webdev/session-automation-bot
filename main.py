@@ -53,11 +53,11 @@ NATIVE_WAKE_TIMER_STATE_FILE = BASE_DIR / "wake_timer_state.json"
 NATIVE_WAKE_TIMER_SCRIPT = "wake_timer.py"
 EARLY_WAKE_GRACE_SECONDS = 10 * 60
 TELEGRAM_RETRY_SECONDS = 60
-WAKE_TASK_NAME = "GFN Bot Wake"
+WAKE_TASK_NAME = "Session Automation Bot Wake"
 WAKE_START_SCRIPT = "start_watcher_once.ps1"
 WAKE_PREPARE_MINUTES = 10
 POWERSHELL_EXE = r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
-BOT_MUTEX_NAME = r"Local\GFNAbgemeldetTelegramBot"
+BOT_MUTEX_NAME = r"Local\SessionAutomationBotTelegramBot"
 BOT_MUTEX_HANDLE = None
 
 

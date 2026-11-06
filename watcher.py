@@ -13,7 +13,7 @@ from config import ALLOWED_CHAT_ID, BOT_TOKEN
 CHECK_INTERVAL = 10
 BASE_DIR = Path(__file__).resolve().parent
 MAIN_SCRIPT = BASE_DIR / "main.py"
-WATCHER_MUTEX_NAME = r"Local\GFNAbgemeldetWatcher"
+WATCHER_MUTEX_NAME = r"Local\SessionAutomationBotWatcher"
 WATCHER_MUTEX_HANDLE = None
 
 
