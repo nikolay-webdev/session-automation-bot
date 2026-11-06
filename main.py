@@ -343,7 +343,7 @@ def wait_for_post_login_page(driver, timeout: int = 60) -> None:
 
     if login_state == "invalid":
         raise RuntimeError(
-            "Die Lernplattform hat die Anmeldung abgelehnt. "
+            "Die Webanwendung hat die Anmeldung abgelehnt. "
             f"{get_page_diagnostics(driver)}"
         )
 

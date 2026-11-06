@@ -9,6 +9,7 @@ os.environ.update(
     {
         "BOT_TOKEN": "unit-test-token",
         "ALLOWED_CHAT_ID": "123",
+        "DEFAULT_URL": "https://example.invalid/target",
         "DEFAULT_LOGIN": "unit-test-login",
         "DEFAULT_PASSWORD": "unit-test-password",
     }
@@ -53,4 +54,16 @@ class ConfigTests(unittest.TestCase):
         with patch.dict(os.environ, {"UNIT_TEST_INT": "not-a-number"}, clear=False):
             with self.assertRaisesRegex(RuntimeError, "must be a number"):
                 config._required_int("UNIT_TEST_INT")
+
+    def test_missing_default_url_raises_clear_error(self):
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("DEFAULT_URL", None)
+            with self.assertRaisesRegex(RuntimeError, "Missing required setting: DEFAULT_URL"):
+                config._required_url("DEFAULT_URL")
+
+    def test_invalid_default_url_raises_clear_error_without_echoing_value(self):
+        with patch.dict(os.environ, {"DEFAULT_URL": "not-a-url-with-secret"}, clear=False):
+            with self.assertRaisesRegex(RuntimeError, r"valid HTTP\(S\) URL") as error:
+                config._required_url("DEFAULT_URL")
+            self.assertNotIn("secret", str(error.exception))
 

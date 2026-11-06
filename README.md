@@ -6,7 +6,7 @@ Telegram-gesteuerter Python-Bot zur zeitgesteuerten Automatisierung von Login- u
 
 Der **Session Automation Bot** ist ein persönliches Lern- und Portfolio-Projekt zur zeitgesteuerten Browserautomatisierung. Die Bedienung erfolgt über Telegram; die Browsersteuerung übernimmt Selenium mit Firefox.
 
-Die aktuelle Implementierung automatisiert Login-, Logout- und weitere konfigurierte Abläufe in einer konkret integrierten Webanwendung. Das Projekt erhebt keinen Anspruch auf Unterstützung beliebiger Websites.
+Die aktuelle Implementierung automatisiert Login-, Logout- und weitere konfigurierte Abläufe in einer Zielanwendung. Sie ist als konkrete Selenium-Integration ausgelegt und nicht als generisches Framework für beliebige Websites.
 
 ## Motivation
 
@@ -60,7 +60,7 @@ Die Anwendung fährt den Computer nicht vollständig herunter. Sie verwendet Win
 
 - Auswahl der Aktion über Telegram-Inline-Schaltflächen.
 - Automatischer Login in Firefox im Headless-Modus.
-- Zusätzlicher Check-in-Ablauf der aktuell integrierten Webanwendung.
+- Zusätzlicher Check-in-Ablauf der konfigurierten Zielanwendung.
 - Logout-Testmodus zum Auslösen der konfigurierten Ziel-Schaltfläche.
 - Zeitgesteuerter Logout-Ablauf.
 - Statusbericht mit Browser-, Watchdog-, Warte- und Akkustatus.
@@ -78,7 +78,7 @@ Die Anwendung fährt den Computer nicht vollständig herunter. Sie verwendet Win
 | Python 3.10+ | Anwendung, Nebenläufigkeit und Zeitsteuerung |
 | `python-telegram-bot` | Telegram-Bot und Inline-Interaktionen |
 | Selenium WebDriver | Automatisierung von Firefox |
-| Firefox | Zielbrowser für die konkret integrierte Webanwendung |
+| Firefox | Zielbrowser für die konfigurierte Zielanwendung |
 | `psutil` | Prozess- und Akkustatus sowie Watchdog-Funktionen |
 | `requests` | Direkte Telegram-Benachrichtigungen aus Hintergrundprozessen |
 | PowerShell | Windows-Aufgaben, Standby und Wiederanlauf |
@@ -114,8 +114,9 @@ flowchart TD
 ├── install_bot_watcher_task.ps1      # Optionaler Windows-Autostart
 ├── start_bot_watcher_hidden.vbs      # Optionaler unsichtbarer Start
 ├── requirements.txt                  # Python-Abhängigkeiten
+├── tests/                            # Unit-Tests für Kernlogik und Konfiguration
 ├── .env.example                      # Sichere Konfigurationsvorlage
-└── .github/workflows/ci.yml          # Syntaxprüfung in GitHub Actions
+└── .github/workflows/ci.yml          # Unit-, Python- und PowerShell-Prüfungen in GitHub Actions
 ```
 
 Die lokale Altversion in `PROJECT_AUS/` wird nicht veröffentlicht und ist über `.gitignore` ausgeschlossen.
@@ -125,7 +126,7 @@ Die lokale Altversion in `PROJECT_AUS/` wird nicht veröffentlicht und ist über
 - Windows mit PowerShell und Windows Task Scheduler.
 - Python 3.10 oder neuer.
 - Firefox.
-- Eine erreichbare Instanz der konkret integrierten Webanwendung.
+- Eine erreichbare Instanz der konfigurierten Zielanwendung.
 - Ein Telegram-Bot-Token und die eigene numerische Telegram-Chat-ID.
 - Eine funktionierende Selenium-WebDriver-Umgebung für Firefox.
 
@@ -134,7 +135,7 @@ Die Anwendung ist derzeit bewusst auf Windows ausgerichtet, weil sie Windows-API
 ## Installation
 
 ```powershell
-git clone <REPOSITORY-URL>
+git clone https://github.com/nikolay-webdev/session-automation-bot.git
 cd session-automation-bot
 
 py -3 -m venv .venv
@@ -167,9 +168,9 @@ Die Konfiguration wird aus `.env` gelesen:
 |---|---|
 | `BOT_TOKEN` | Token des Telegram-Bots |
 | `ALLOWED_CHAT_ID` | Einzige Chat-ID, die den Bot steuern darf |
-| `DEFAULT_URL` | Startadresse der konkret integrierten Webanwendung |
-| `DEFAULT_LOGIN` | Login für die Webanwendung |
-| `DEFAULT_PASSWORD` | Passwort für die Webanwendung |
+| `DEFAULT_URL` | Startadresse der konfigurierten Zielanwendung |
+| `DEFAULT_LOGIN` | Login für die Zielanwendung |
+| `DEFAULT_PASSWORD` | Passwort für die Zielanwendung |
 | `WATCHDOG_EVERY_SECONDS` | Prüfintervall des internen Watchdogs |
 
 ## Verwendung
@@ -222,7 +223,7 @@ GitHub Actions installiert die festgelegten direkten Abhängigkeiten und führt 
 ## Bekannte Einschränkungen
 
 - Die Anwendung ist Windows-spezifisch.
-- Selenium-Selektoren hängen vom aktuellen Aufbau der konkret integrierten Webanwendung ab.
+- Selenium-Selektoren hängen vom aktuellen Aufbau der Zielanwendung ab.
 - Für die tatsächliche Browserautomatisierung sind gültige Zugangsdaten und eine erreichbare Zielanwendung erforderlich.
 - Es gibt noch keine automatisierten End-to-End-Tests.
 - Die Anwendung ist für eine einzelne konfigurierte Telegram-Chat-ID ausgelegt.
@@ -230,13 +231,9 @@ GitHub Actions installiert die festgelegten direkten Abhängigkeiten und führt 
 
 ## Weiterentwicklung
 
-- Unit-Tests für Zeitberechnung, Zustandswechsel und Konfigurationsvalidierung ergänzen.
+- Die bestehende Testabdeckung für Zeitberechnung, Zustandswechsel und Konfigurationsvalidierung erweitern.
 - Selenium-Selektoren und externe URLs in eine eigene Konfigurationsschicht auslagern.
 - Abhängigkeiten nur nach einer erfolgreichen Kompatibilitätsprüfung aktualisieren.
 - Strukturierte, redigierte Logs statt frei formulierter Laufzeitmeldungen einführen.
 - Die Telegram-Texte über eine zentrale Lokalisierung verwalten.
 - Eine sichere Testumgebung mit simulierten Telegram- und Browser-Abhängigkeiten ergänzen.
-
-## Lizenz
-
-Für dieses Projekt wurde noch keine Lizenz festgelegt. Eine Lizenz sollte vor der Veröffentlichung bewusst ausgewählt und separat bestätigt werden.

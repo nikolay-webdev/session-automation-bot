@@ -1,4 +1,16 @@
+import os
 import unittest
+
+
+os.environ.update(
+    {
+        "BOT_TOKEN": "unit-test-token",
+        "ALLOWED_CHAT_ID": "123",
+        "DEFAULT_URL": "https://example.invalid/target",
+        "DEFAULT_LOGIN": "unit-test-login",
+        "DEFAULT_PASSWORD": "unit-test-password",
+    }
+)
 
 from config import redact_sensitive_text
 

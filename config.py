@@ -1,6 +1,7 @@
 import os
 import re
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -49,6 +50,14 @@ def _optional_int(name: str, default: int) -> int:
         raise RuntimeError(f"Setting {name} must be a number.") from exc
 
 
+def _required_url(name: str) -> str:
+    value = _required(name)
+    parsed = urlparse(value)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise RuntimeError(f"Setting {name} must be a valid HTTP(S) URL.")
+    return value
+
+
 def redact_sensitive_text(text: str) -> str:
     """Remove credentials, session data and personal Windows paths from diagnostics."""
     safe_text = str(text)
@@ -78,7 +87,7 @@ _load_env_file()
 
 BOT_TOKEN = _required("BOT_TOKEN")
 ALLOWED_CHAT_ID = _required_int("ALLOWED_CHAT_ID")
-DEFAULT_URL = os.getenv("DEFAULT_URL", "https://lernplattform.gfn.de/?starten=1").strip()
+DEFAULT_URL = _required_url("DEFAULT_URL")
 DEFAULT_LOGIN = _required("DEFAULT_LOGIN")
 DEFAULT_PASSWORD = _required("DEFAULT_PASSWORD")
 

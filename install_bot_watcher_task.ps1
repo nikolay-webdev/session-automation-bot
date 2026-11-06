@@ -44,7 +44,7 @@ Register-ScheduledTask `
     -Action $action `
     -Trigger $trigger `
     -Settings $settings `
-    -Description "Starts Abgemeldet Telegram bot watcher at Windows logon." `
+    -Description "Starts the Session Automation Bot watcher at Windows logon." `
     -Force | Out-Null
 
 Write-Host "Geplante Aufgabe installiert: $TaskName"
