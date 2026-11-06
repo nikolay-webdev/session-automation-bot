@@ -1,0 +1,15 @@
+.env
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+wake_log.txt
+bot_console.log
+sleep_wake_state.json
+wake_timer_state.json
+*.log
+.pytest_cache/
+.coverage
+.idea/
+.vscode/
+PROJECT_AUS/
